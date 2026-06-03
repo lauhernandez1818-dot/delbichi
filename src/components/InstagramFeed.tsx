@@ -164,10 +164,13 @@ export default function InstagramFeed() {
                 <video
                   src={reel.videoSrc}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  autoPlay
                   muted
                   loop
                   playsInline
+                  preload="none"
+                  poster=""
+                  onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
+                  onMouseLeave={(e) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
                 />
               ) : (
                 <div className="flex h-full w-full flex-col items-center justify-center bg-delbichi-dark">
