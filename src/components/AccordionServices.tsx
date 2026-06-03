@@ -115,10 +115,10 @@ export default function AccordionServices() {
       <div className="mx-auto max-w-5xl">
         {/* Section Header */}
         <div className="mb-20">
-          <span className="mb-4 block font-body text-sm uppercase tracking-[0.3em] text-delbichi-vibrant">
+          <span className="mb-6 block font-body text-sm uppercase tracking-[0.3em] text-delbichi-vibrant">
             Lo que hacemos
           </span>
-          <h2 className="font-display text-[clamp(3.5rem,10vw,8rem)] font-black leading-[0.85] tracking-tighter text-delbichi-white">
+          <h2 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-black leading-none tracking-tight text-delbichi-white">
             SERVICIOS
           </h2>
           <div className="mt-6 h-1 w-16 bg-delbichi-primary" />

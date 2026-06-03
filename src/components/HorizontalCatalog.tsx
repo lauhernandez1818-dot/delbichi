@@ -137,10 +137,10 @@ export default function HorizontalCatalog() {
       >
         {/* Section Header Card */}
         <div className="flex h-full w-[90vw] md:w-screen flex-shrink-0 flex-col items-start justify-center px-4 md:px-16 lg:px-24">
-          <span className="mb-4 font-body text-xs md:text-sm uppercase tracking-[0.3em] text-delbichi-vibrant">
+          <span className="mb-6 font-body text-xs md:text-sm uppercase tracking-[0.3em] text-delbichi-vibrant">
             Productos Destacados
           </span>
-          <h2 className="font-display text-[clamp(3.5rem,10vw,8rem)] font-black leading-[0.85] tracking-tighter text-delbichi-white">
+          <h2 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-black leading-none tracking-tight text-delbichi-white">
             CATÁLOGO
           </h2>
           <div className="mt-6 md:mt-8 h-1 w-16 md:w-24 bg-delbichi-primary" />
@@ -161,7 +161,7 @@ export default function HorizontalCatalog() {
             className="group relative flex h-[75%] max-h-[600px] min-h-[450px] w-[85vw] sm:w-[350px] md:w-[400px] lg:w-[440px] flex-shrink-0 cursor-pointer flex-col overflow-hidden rounded-sm border border-delbichi-metallic/20 bg-delbichi-dark will-change-transform"
           >
             {/* Tag Number */}
-            <span className="absolute right-4 top-4 md:right-6 md:top-6 z-10 font-display text-[6rem] md:text-[8rem] font-black leading-none text-delbichi-white/[0.04] pointer-events-none">
+            <span className="absolute right-4 top-4 md:right-6 md:top-6 z-10 font-display text-[4rem] md:text-[6rem] font-black leading-none text-delbichi-white/[0.04] pointer-events-none">
               {product.tag}
             </span>
 
@@ -187,7 +187,7 @@ export default function HorizontalCatalog() {
             {/* Content */}
             <div className="flex flex-1 flex-col justify-between p-6 md:p-8">
               <div>
-                <h3 className="font-display text-2xl lg:text-3xl font-black uppercase leading-tight tracking-tight text-delbichi-white">
+                <h3 className="font-display text-xl lg:text-2xl font-black uppercase leading-tight tracking-tight text-delbichi-white">
                   {product.title}
                 </h3>
                 <p className="mt-3 md:mt-4 font-body text-sm md:text-base leading-relaxed text-delbichi-gray">

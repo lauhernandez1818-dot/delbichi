@@ -111,7 +111,7 @@ export default function HeroSection() {
 
         <h1
           className="font-display font-black leading-[0.95] tracking-tight mb-8 md:mb-12 max-w-[1300px]"
-          style={{ fontSize: 'clamp(2.5rem, 5.5vw, 6.5rem)' }}
+          style={{ fontSize: 'clamp(2rem, 4.5vw, 4.5rem)' }}
         >
           <div className="block">
             {renderLine(HERO_WORDS_LINE1, 'l1')}

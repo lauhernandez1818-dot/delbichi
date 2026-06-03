@@ -120,10 +120,10 @@ export default function InstagramFeed() {
           className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end"
         >
           <div>
-            <span className="mb-4 flex items-center gap-3 font-body text-sm uppercase tracking-[0.3em] text-delbichi-vibrant">
+            <span className="mb-6 flex items-center gap-3 font-body text-sm uppercase tracking-[0.3em] text-delbichi-vibrant">
               <InstagramIcon /> @delbichimotors
             </span>
-            <h2 className="font-display text-[clamp(3rem,8vw,6rem)] font-black leading-[0.9] tracking-tighter text-delbichi-white">
+            <h2 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-black leading-none tracking-tight text-delbichi-white">
               COMUNIDAD<br />
               <span
                 className="text-transparent"

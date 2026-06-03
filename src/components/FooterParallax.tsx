@@ -67,7 +67,7 @@ const FooterParallax: React.FC = () => {
         <div className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[60vw] max-w-[700px] aspect-square rounded-full bg-delbichi-deep/20 blur-[150px] pointer-events-none" />
         {/* ── Top Area: Massive CTA & Industrial Button ── */}
         <div className="footer-reveal my-auto flex w-full flex-col items-center justify-center gap-8 text-center">
-          <h2 className="w-full cursor-default break-words font-display text-[clamp(3.5rem,10vw,12rem)] font-black leading-[0.85] tracking-tighter text-delbichi-white transition-colors duration-500 hover:text-delbichi-vibrant">
+          <h2 className="w-full cursor-default break-words font-display text-[clamp(2.5rem,8vw,5.5rem)] font-black leading-none tracking-tight text-delbichi-white transition-colors duration-500 hover:text-delbichi-vibrant">
             COTIZA TU PEDIDO
           </h2>
 
