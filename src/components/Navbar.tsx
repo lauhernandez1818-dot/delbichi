@@ -45,7 +45,7 @@ export default function Navbar() {
         {/* Logo — tamaño generoso y responsivo, sin fondo cuadrado */}
         <a href="#hero" className="flex h-full items-center py-3 md:py-4 group flex-shrink-0" id="nav-logo">
           <img
-            src="/images/logo.png"
+            src="/images/logo.webp"
             alt="Delbichi Motors"
             className="h-full w-auto object-contain mix-blend-screen brightness-110 transition-all duration-300 group-hover:brightness-125"
           />

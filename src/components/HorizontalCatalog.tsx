@@ -18,37 +18,37 @@ const products: Product[] = [
   {
     title: 'Kit de Bloque',
     description: 'Máximo rendimiento, durabilidad y fácil instalación para tu motor.',
-    image: '/images/kit-bloque.jpg',
+    image: '/images/kit-bloque.webp',
     tag: '01',
   },
   {
     title: 'Cigüeñal',
     description: 'Material reforzado con calidad garantizada para máxima resistencia.',
-    image: '/images/ciguenal.jpg',
+    image: '/images/ciguenal.webp',
     tag: '02',
   },
   {
     title: 'Carburador GN125',
     description: 'Ahorro de combustible y mejor rendimiento del motor garantizado.',
-    image: '/images/carburador.jpg',
+    image: '/images/carburador.webp',
     tag: '03',
   },
   {
     title: 'Amortiguador GY6',
     description: 'Máxima absorción y resistencia para una conducción suave y segura.',
-    image: '/images/amortiguador.jpg',
+    image: '/images/amortiguador.webp',
     tag: '04',
   },
   {
     title: 'Crochera Completa',
     description: 'Transmisión impecable, alta calidad y mayor durabilidad para tu moto.',
-    image: '/images/crochera.jpg',
+    image: '/images/crochera.webp',
     tag: '05',
   },
   {
     title: 'Arranque GN125',
     description: 'Arranque potente y encendido confiable en cualquier condición.',
-    image: '/images/arranque.jpg',
+    image: '/images/arranque.webp',
     tag: '06',
   },
 ];
