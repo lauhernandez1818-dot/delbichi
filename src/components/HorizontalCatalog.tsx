@@ -137,10 +137,10 @@ export default function HorizontalCatalog() {
       >
         {/* Section Header Card */}
         <div className="flex h-full w-[90vw] md:w-screen flex-shrink-0 flex-col items-start justify-center px-4 md:px-16 lg:px-24">
-          <span className="mb-6 font-body text-xs md:text-sm uppercase tracking-[0.3em] text-delbichi-vibrant">
+          <span className="mb-8 font-body text-xs md:text-sm uppercase tracking-[0.3em] text-delbichi-vibrant">
             Productos Destacados
           </span>
-          <h2 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-black leading-none tracking-tight text-delbichi-white">
+          <h2 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-black leading-tight tracking-tight text-delbichi-white">
             CATÁLOGO
           </h2>
           <div className="mt-6 md:mt-8 h-1 w-16 md:w-24 bg-delbichi-primary" />
