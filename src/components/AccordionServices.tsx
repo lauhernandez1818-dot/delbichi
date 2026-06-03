@@ -33,9 +33,9 @@ const services: Service[] = [
     icon: Truck,
   },
   {
-    title: 'Venta al Detal',
+    title: 'Asesoría Personalizada',
     description:
-      'Atención personalizada para el motorizado que busca la mejor calidad.',
+      'Te orientamos en la selección del producto ideal para tu moto o tu inventario.',
     icon: User,
   },
   {

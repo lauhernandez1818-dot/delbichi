@@ -7,7 +7,7 @@ const HERO_WORDS_LINE1 = ['POTENCIA', 'EN', 'CADA', 'RODADA.'];
 const HERO_WORDS_LINE2 = ['REPUESTOS', 'DE', 'VERDAD.'];
 
 const SUBTITLE =
-  'El mayor inventario de cauchos y repuestos para motos en Venezuela. Calidad garantizada, al mayor y detal.';
+  'El mayor inventario de cauchos y repuestos para motos en Venezuela. Calidad garantizada, al mayor.';
 
 const WHATSAPP_URL =
   'https://api.whatsapp.com/send/?phone=584223330304&text&type=phone_number&app_absent=0&utm_source=ig';
