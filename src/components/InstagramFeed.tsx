@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { Play, X } from 'lucide-react';
+import { Play, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const InstagramIcon = () => (
   <svg
@@ -278,7 +278,33 @@ export default function InstagramFeed() {
               </a>
 
             </div>
+            </div>
           </div>
+
+          {/* Navigation Arrows */}
+          {reels.findIndex((r) => r.id === selectedReel.id) > 0 && (
+            <button
+              onClick={() => {
+                const currentIndex = reels.findIndex((r) => r.id === selectedReel.id);
+                setSelectedReel(reels[currentIndex - 1]);
+              }}
+              className="absolute left-2 top-1/2 -translate-y-1/2 sm:left-6 z-[10000] flex h-12 w-12 items-center justify-center border border-delbichi-metallic/30 bg-delbichi-black text-delbichi-white transition-colors hover:border-delbichi-vibrant hover:text-delbichi-vibrant md:left-8"
+            >
+              <ChevronLeft size={28} />
+            </button>
+          )}
+
+          {reels.findIndex((r) => r.id === selectedReel.id) < reels.length - 1 && (
+            <button
+              onClick={() => {
+                const currentIndex = reels.findIndex((r) => r.id === selectedReel.id);
+                setSelectedReel(reels[currentIndex + 1]);
+              }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 sm:right-6 z-[10000] flex h-12 w-12 items-center justify-center border border-delbichi-metallic/30 bg-delbichi-black text-delbichi-white transition-colors hover:border-delbichi-vibrant hover:text-delbichi-vibrant md:right-8"
+            >
+              <ChevronRight size={28} />
+            </button>
+          )}
         </div>,
         document.body
       )}

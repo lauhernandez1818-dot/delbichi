@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { X, ZoomIn } from 'lucide-react';
+import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -263,7 +263,33 @@ export default function HorizontalCatalog() {
                 <ZoomIn className="h-5 w-5 text-delbichi-metallic/50" />
               </div>
             </div>
+            </div>
           </div>
+
+          {/* Navigation Arrows */}
+          {products.findIndex((p) => p.tag === selectedProduct.tag) > 0 && (
+            <button
+              onClick={() => {
+                const currentIndex = products.findIndex((p) => p.tag === selectedProduct.tag);
+                setSelectedProduct(products[currentIndex - 1]);
+              }}
+              className="absolute left-2 top-1/2 -translate-y-1/2 sm:left-6 z-[10000] flex h-12 w-12 items-center justify-center border border-delbichi-metallic/30 bg-delbichi-black text-delbichi-white transition-colors hover:border-delbichi-vibrant hover:text-delbichi-vibrant md:left-8"
+            >
+              <ChevronLeft size={28} />
+            </button>
+          )}
+
+          {products.findIndex((p) => p.tag === selectedProduct.tag) < products.length - 1 && (
+            <button
+              onClick={() => {
+                const currentIndex = products.findIndex((p) => p.tag === selectedProduct.tag);
+                setSelectedProduct(products[currentIndex + 1]);
+              }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 sm:right-6 z-[10000] flex h-12 w-12 items-center justify-center border border-delbichi-metallic/30 bg-delbichi-black text-delbichi-white transition-colors hover:border-delbichi-vibrant hover:text-delbichi-vibrant md:right-8"
+            >
+              <ChevronRight size={28} />
+            </button>
+          )}
         </div>,
         document.body
       )}
