@@ -55,11 +55,6 @@ const reels: Reel[] = [
 🏍️ Medidas comerciales para todo tipo de motos. Envíos nacionales. Mira el video y cotiza ➡️
 🛵Más que cauchos, seguridad y rendimiento para tu moto. Descubre en el video las ofertas al mayor de la marca Vulcano. Llevamos la medida que necesitas a cualquier rincón del país 🚚 #venezuela #fyp #ventas #cauchos #motos`,
   },
-  {
-    id: '04',
-    videoSrc: '', // Placeholder
-    text: '¡Próximamente! Esperando el siguiente video para el Reel 04.',
-  },
 ];
 
 export default function InstagramFeed() {
