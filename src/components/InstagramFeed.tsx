@@ -278,7 +278,6 @@ export default function InstagramFeed() {
               </a>
 
             </div>
-            </div>
           </div>
 
           {/* Navigation Arrows */}

@@ -263,7 +263,6 @@ export default function HorizontalCatalog() {
                 <ZoomIn className="h-5 w-5 text-delbichi-metallic/50" />
               </div>
             </div>
-            </div>
           </div>
 
           {/* Navigation Arrows */}
