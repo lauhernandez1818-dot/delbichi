@@ -47,7 +47,7 @@ export default function Navbar() {
           <img
             src="/images/logo.webp"
             alt="Delbichi Motors"
-            className="h-full w-auto object-contain mix-blend-screen brightness-110 transition-all duration-300 group-hover:brightness-125"
+            className="h-full w-auto max-w-[min(280px,55vw)] object-contain transition-opacity duration-300 group-hover:opacity-90"
           />
         </a>
 

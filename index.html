@@ -11,14 +11,42 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta property="og:title" content="Delbichi Motors — Cauchos y Repuestos para Motos" />
     <meta property="og:description" content="El mayor inventario de cauchos y repuestos para motos en Venezuela. Venta exclusiva al mayor." />
-    <meta property="og:image" content="/images/logo.webp" />
+    <meta property="og:image" content="https://delbichi.vercel.app/images/logo.webp" />
+    <meta property="og:url" content="https://delbichi.vercel.app/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://delbichi.vercel.app/images/logo.webp" />
     <meta property="og:type" content="website" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
     <title>Delbichi Motors — Cauchos y Repuestos para Motos</title>
+    <style>
+      #page-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0a0a0b;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+      }
+      #page-loader img {
+        width: min(92vw, 720px);
+        height: auto;
+        object-fit: contain;
+      }
+      #page-loader.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+    </style>
   </head>
   <body>
+    <div id="page-loader" aria-hidden="true">
+      <img src="/images/logo.webp" alt="Delbichi Motors" />
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
