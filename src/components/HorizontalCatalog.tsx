@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ZoomIn, ChevronLeft, ChevronRight, SkipForward } from 'lucide-react';
 import {
   catalogItems,
   catalogProducts,
@@ -13,11 +13,67 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
+function getOffsetWithinTrack(element: HTMLElement, track: HTMLElement) {
+  let offset = 0;
+  let node: HTMLElement | null = element;
+  while (node && node !== track) {
+    offset += node.offsetLeft;
+    node = node.parentElement;
+  }
+  return offset;
+}
+
+function smoothScrollTo(targetY: number) {
+  const startY = window.scrollY;
+  gsap.to(
+    { value: startY },
+    {
+      value: targetY,
+      duration: 1.1,
+      ease: 'power2.inOut',
+      onUpdate() {
+        window.scrollTo(0, this.targets()[0].value);
+      },
+    }
+  );
+}
+
 export default function HorizontalCatalog() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const cauchosMarkerRef = useRef<HTMLDivElement>(null);
+  const repuestosMarkerRef = useRef<HTMLDivElement>(null);
+  const catalogScrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<CatalogProduct | null>(null);
+
+  const getCatalogScrollY = (horizontalOffset: number) => {
+    const track = trackRef.current;
+    const st = catalogScrollTriggerRef.current;
+    if (!track || !st) return null;
+
+    const scrollDistance = Math.max(track.scrollWidth - window.innerWidth, 1);
+    const progress = Math.min(1, Math.max(0, horizontalOffset / scrollDistance));
+    return st.start + progress * (st.end - st.start);
+  };
+
+  const jumpToMarker = (marker: HTMLElement | null) => {
+    const track = trackRef.current;
+    if (!track || !marker) return;
+
+    const offset = Math.max(0, getOffsetWithinTrack(marker, track) - 32);
+    const targetY = getCatalogScrollY(offset);
+    if (targetY !== null) smoothScrollTo(targetY);
+  };
+
+  const skipCatalog = () => {
+    const st = catalogScrollTriggerRef.current;
+    if (st) {
+      smoothScrollTo(st.end + 2);
+      return;
+    }
+    document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   useGSAP(
     () => {
@@ -27,10 +83,11 @@ export default function HorizontalCatalog() {
 
       const scrollDistance = track.scrollWidth - window.innerWidth;
 
-      gsap.to(track, {
+      const horizontalTween = gsap.to(track, {
         x: -scrollDistance,
         ease: 'none',
         scrollTrigger: {
+          id: 'catalog-pin',
           trigger: section,
           start: 'top top',
           end: () => `+=${scrollDistance}`,
@@ -40,6 +97,8 @@ export default function HorizontalCatalog() {
           invalidateOnRefresh: true,
         },
       });
+
+      catalogScrollTriggerRef.current = horizontalTween.scrollTrigger ?? null;
 
       gsap.fromTo(
         cardsRef.current.filter(Boolean),
@@ -88,6 +147,38 @@ export default function HorizontalCatalog() {
         }}
       />
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[40vw] max-w-[500px] aspect-square rounded-full bg-delbichi-wine/30 blur-[180px] pointer-events-none z-0" />
+
+      <nav
+        aria-label="Atajos del catálogo"
+        className="absolute bottom-5 left-1/2 z-20 flex max-w-[calc(100%-2rem)] -translate-x-1/2 flex-wrap items-center justify-center gap-2 rounded-sm border border-delbichi-metallic/25 bg-delbichi-black/75 px-3 py-2 backdrop-blur-md md:bottom-8 md:gap-2.5 md:px-4 md:py-2.5"
+      >
+        <span className="hidden font-body text-[10px] uppercase tracking-[0.2em] text-delbichi-metallic sm:inline">
+          Ir a:
+        </span>
+        <button
+          type="button"
+          onClick={() => jumpToMarker(cauchosMarkerRef.current)}
+          className="rounded-sm border border-delbichi-metallic/30 px-3 py-1.5 font-body text-[10px] uppercase tracking-[0.15em] text-delbichi-white transition-colors hover:border-delbichi-vibrant hover:text-delbichi-vibrant md:text-xs"
+        >
+          Cauchos
+        </button>
+        <button
+          type="button"
+          onClick={() => jumpToMarker(repuestosMarkerRef.current)}
+          className="rounded-sm border border-delbichi-metallic/30 px-3 py-1.5 font-body text-[10px] uppercase tracking-[0.15em] text-delbichi-white transition-colors hover:border-delbichi-vibrant hover:text-delbichi-vibrant md:text-xs"
+        >
+          Repuestos
+        </button>
+        <button
+          type="button"
+          onClick={skipCatalog}
+          className="inline-flex items-center gap-1.5 rounded-sm border border-delbichi-primary/50 bg-delbichi-primary/20 px-3 py-1.5 font-body text-[10px] uppercase tracking-[0.15em] text-delbichi-white transition-colors hover:border-delbichi-vibrant hover:bg-delbichi-vibrant/20 md:text-xs"
+        >
+          <SkipForward className="h-3 w-3" aria-hidden />
+          Saltar catálogo
+        </button>
+      </nav>
+
       <div
         ref={trackRef}
         className="relative z-10 flex h-full items-center gap-6 md:gap-12 px-6 md:px-12 will-change-transform"
@@ -109,9 +200,17 @@ export default function HorizontalCatalog() {
 
         {catalogItems.map((item) => {
           if (isCatalogSection(item)) {
+            const sectionMarkerRef =
+              item.title === 'Cauchos Vulcano'
+                ? cauchosMarkerRef
+                : item.title === 'Repuestos'
+                  ? repuestosMarkerRef
+                  : null;
+
             return (
               <div
                 key={`section-${item.title}`}
+                ref={sectionMarkerRef}
                 className="flex h-[70%] max-h-[520px] w-[75vw] sm:w-[300px] md:w-[340px] flex-shrink-0 flex-col items-start justify-center rounded-sm border border-delbichi-primary/30 bg-delbichi-wine/20 px-8 md:px-10"
               >
                 <span className="mb-4 font-body text-[10px] md:text-xs uppercase tracking-[0.35em] text-delbichi-vibrant">
