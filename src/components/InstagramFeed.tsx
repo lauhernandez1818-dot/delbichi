@@ -69,16 +69,17 @@ export default function InstagramFeed() {
 
       gsap.fromTo(
         headerRef.current.children,
-        { y: 50, opacity: 0 },
+        { y: 36, opacity: 0, scale: 0.97 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: 'back.out(1.3)',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 80%',
+            start: 'top 85%',
             toggleActions: 'play none none reverse',
           },
         }
@@ -86,16 +87,18 @@ export default function InstagramFeed() {
 
       gsap.fromTo(
         cardsRef.current.filter(Boolean),
-        { x: 100, opacity: 0 },
+        { y: 50, opacity: 0, scale: 0.92, rotate: 2 },
         {
-          x: 0,
+          y: 0,
           opacity: 1,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
+          scale: 1,
+          rotate: 0,
+          duration: 0.65,
+          stagger: 0.12,
+          ease: 'back.out(1.5)',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 60%',
+            start: 'top 78%',
             toggleActions: 'play none none reverse',
           },
         }
@@ -108,7 +111,7 @@ export default function InstagramFeed() {
     <section
       ref={sectionRef}
       id="comunidad"
-      className="relative z-20 overflow-hidden bg-delbichi-black py-32"
+      className="relative z-20 overflow-hidden bg-delbichi-black py-20 md:py-24"
     >
       {/* Decorative Background */}
       <div className="absolute left-1/2 top-0 h-[1px] w-full -translate-x-1/2 bg-gradient-to-r from-transparent via-delbichi-primary/50 to-transparent" />
@@ -117,7 +120,7 @@ export default function InstagramFeed() {
       <div className="mx-auto max-w-[1600px] px-6 md:px-12 lg:px-20">
         <div
           ref={headerRef}
-          className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end"
+          className="mb-10 flex flex-col justify-between gap-6 md:mb-12 md:flex-row md:items-end"
         >
           <div>
             <span className="mb-6 flex items-center gap-3 font-body text-sm uppercase tracking-[0.3em] text-delbichi-vibrant">
@@ -137,12 +140,10 @@ export default function InstagramFeed() {
             href="https://www.instagram.com/delbichimotors/"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-3 border border-delbichi-metallic/30 px-6 py-3 transition-colors hover:border-delbichi-vibrant hover:bg-delbichi-vibrant/10"
+            className="btn-social btn-social-instagram"
           >
-            <span className="font-display text-sm font-bold uppercase tracking-wider text-delbichi-white">
-              Seguir en Instagram
-            </span>
-            <div className="h-2 w-2 rounded-full bg-delbichi-vibrant transition-transform group-hover:scale-150" />
+            <InstagramIcon />
+            <span>Seguir en Instagram</span>
           </a>
         </div>
 

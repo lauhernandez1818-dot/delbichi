@@ -1,13 +1,18 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { ChevronDown } from 'lucide-react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ChevronDown, MessageCircle } from 'lucide-react';
 
-const HERO_WORDS_LINE1 = ['POTENCIA', 'EN', 'CADA', 'RODADA.'];
-const HERO_WORDS_LINE2 = ['REPUESTOS', 'DE', 'VERDAD.'];
+gsap.registerPlugin(ScrollTrigger);
 
-const SUBTITLE =
-  'El mayor inventario de cauchos y repuestos para motos en Venezuela. Calidad garantizada, al mayor.';
+const SUBTITLE = (
+  <>
+    El mayor inventario de cauchos y repuestos para motos en Venezuela.
+    <br className="hidden sm:block" /> Calidad garantizada, al mayor.
+  </>
+);
 
 const WHATSAPP_URL =
   'https://api.whatsapp.com/send/?phone=584223330304&text&type=phone_number&app_absent=0&utm_source=ig';
@@ -16,16 +21,19 @@ export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const orbTopRef = useRef<HTMLDivElement>(null);
+  const orbBottomRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
-      tl.from('.hero-word', {
-        y: '120%',
-        duration: 1.2,
-        stagger: 0.08,
+      tl.from('.hero-line', {
+        y: '110%',
+        duration: 1.1,
+        stagger: 0.18,
         delay: 0.8,
       });
 
@@ -55,40 +63,74 @@ export default function HeroSection() {
         ease: 'power1.inOut',
         delay: 3.5,
       });
+
+      if (orbTopRef.current) {
+        gsap.to(orbTopRef.current, {
+          x: 30,
+          y: -20,
+          scale: 1.08,
+          duration: 6,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        });
+      }
+
+      if (orbBottomRef.current) {
+        gsap.to(orbBottomRef.current, {
+          x: -25,
+          y: 15,
+          scale: 1.12,
+          duration: 7,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        });
+      }
+
+      if (statsRef.current) {
+        gsap.fromTo(
+          statsRef.current.children,
+          { y: 28, opacity: 0, scale: 0.9 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.55,
+            stagger: 0.1,
+            ease: 'back.out(1.6)',
+            scrollTrigger: {
+              trigger: statsRef.current,
+              start: 'top 88%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+      }
     },
     { scope: heroRef }
   );
 
-  const renderLine = (
-    words: string[],
-    lineKey: string,
-    accentWord?: string
-  ) => {
-    return words.map((word, i) => {
-      // Agregamos espacio real para que se lea y se seleccione correctamente en el navegador
-      const isLast = i === words.length - 1;
-      return (
-        <span key={`${lineKey}-${i}`} className="inline-block align-top">
-          <span className="inline-block overflow-hidden pt-[0.1em] pb-[0.3em] -mt-[0.1em] -mb-[0.3em]">
-            <span
-              className={`hero-word inline-block ${
-                word === accentWord ? 'text-gradient-red' : 'text-delbichi-white'
-              }`}
-            >
-              {word}{!isLast && '\u00A0'}
-            </span>
-          </span>
-          {!isLast && <span className="inline-block w-[0.2em] md:w-[0.3em]"></span>}
-        </span>
-      );
-    });
+  const renderLine = (text: string, accentWord?: string) => {
+    if (!accentWord) {
+      return text;
+    }
+
+    const parts = text.split(accentWord);
+    return (
+      <>
+        {parts[0]}
+        <span className="text-gradient-red">{accentWord}</span>
+        {parts[1]}
+      </>
+    );
   };
 
   return (
     <section
       ref={heroRef}
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center bg-radial-hero overflow-hidden"
+      className="hero-section relative flex min-h-[100dvh] flex-col justify-start bg-radial-hero overflow-hidden md:justify-center"
     >
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -99,69 +141,80 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="absolute top-0 right-0 w-[40vw] max-w-[600px] aspect-square bg-delbichi-wine/30 rounded-full blur-[200px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-[30vw] max-w-[400px] aspect-square bg-delbichi-deep/10 rounded-full blur-[150px] pointer-events-none" />
+      <div
+        ref={orbTopRef}
+        className="absolute top-0 right-0 w-[40vw] max-w-[600px] aspect-square bg-delbichi-wine/30 rounded-full blur-[200px] pointer-events-none"
+      />
+      <div
+        ref={orbBottomRef}
+        className="absolute bottom-0 left-1/4 w-[30vw] max-w-[400px] aspect-square bg-delbichi-deep/10 rounded-full blur-[150px] pointer-events-none"
+      />
 
-      <div className="relative z-10 w-full px-6 sm:px-10 md:px-16 lg:px-24 xl:px-32 pt-28 md:pt-36 lg:pt-40 pb-16 md:pb-20">
-        <div className="mb-6 md:mb-10">
-          <span className="hero-word inline-block font-display text-[0.65rem] md:text-xs uppercase tracking-[0.25em] md:tracking-[0.3em] text-delbichi-primary font-semibold border border-delbichi-primary/30 px-3 md:px-4 py-1.5 md:py-2 rounded-full">
+      <div className="hero-shell relative z-10 flex w-full flex-col px-6 sm:px-10 md:px-16 lg:px-24 xl:px-32">
+        <div>
+          <span className="hero-badge hero-line inline-block font-display uppercase tracking-[0.25em] text-delbichi-primary font-semibold border border-delbichi-primary/30 rounded-full">
             Delbichi Motors — Caracas, Venezuela
           </span>
         </div>
 
-        <h1
-          className="font-display font-black leading-[0.95] tracking-tight mb-8 md:mb-12 max-w-[1300px]"
-          style={{ fontSize: 'clamp(2rem, 4.5vw, 4.5rem)' }}
-        >
-          <div className="block">
-            {renderLine(HERO_WORDS_LINE1, 'l1')}
-          </div>
-          <div className="block mt-4 md:mt-8">
-            {renderLine(HERO_WORDS_LINE2, 'l2', 'VERDAD.')}
-          </div>
+        <h1 className="hero-title font-display font-black tracking-tight max-w-[1300px]">
+          <span className="block overflow-hidden">
+            <span className="hero-line block text-delbichi-white">
+              {renderLine('POTENCIA EN CADA RODADA.')}
+            </span>
+          </span>
+          <span className="hero-title-line2 block overflow-hidden">
+            <span className="hero-line block text-delbichi-white">
+              {renderLine('REPUESTOS DE VERDAD.', 'VERDAD.')}
+            </span>
+          </span>
         </h1>
 
         <p
           ref={subtitleRef}
-          className="font-body text-sm sm:text-base md:text-lg lg:text-xl text-delbichi-gray max-w-2xl leading-relaxed mb-10 md:mb-14"
+          className="hero-subtitle font-body text-delbichi-gray max-w-2xl"
         >
           {SUBTITLE}
         </p>
 
         <div
           ref={ctaRef}
-          className="flex flex-col sm:flex-row flex-wrap gap-4 md:gap-6 items-stretch sm:items-center"
+          className="hero-ctas flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center"
         >
           <a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             id="hero-cta-primary"
-            className="inline-flex items-center justify-center gap-3 bg-delbichi-vibrant hover:bg-delbichi-primary text-delbichi-white font-display text-sm md:text-base font-bold uppercase tracking-wider px-6 md:px-8 py-3.5 md:py-4 rounded transition-all duration-300 hover:shadow-[0_0_40px_rgba(229,30,27,0.4)] animate-pulse-glow"
+            className="btn-bubble btn-bubble-primary btn-bubble-md animate-bubble-float"
           >
-            Cotizar Ahora
+            <MessageCircle className="h-5 w-5 shrink-0" aria-hidden />
+            Cotizar ahora
           </a>
-          <a
-            href="#catalogo"
+          <Link
+            to="/catalogo"
             id="hero-cta-secondary"
-            className="inline-flex items-center justify-center gap-3 border border-delbichi-metallic/40 hover:border-delbichi-light/60 text-delbichi-light font-display text-sm md:text-base font-medium uppercase tracking-wider px-6 md:px-8 py-3.5 md:py-4 rounded transition-all duration-300 hover:bg-delbichi-metallic/10"
+            className="btn-bubble btn-bubble-outline btn-bubble-md"
           >
-            Ver Catálogo
-          </a>
+            Ir al catálogo
+          </Link>
         </div>
 
-        <div className="mt-16 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 border-t border-delbichi-metallic/15 pt-8 md:pt-12 max-w-5xl">
+        <div
+          ref={statsRef}
+          className="hero-stats grid grid-cols-2 md:grid-cols-4 border-t border-delbichi-metallic/15 max-w-5xl"
+        >
           {[
             { value: '5K+', label: 'Productos' },
             { value: '200+', label: 'Talleres Aliados' },
             { value: '24', label: 'Estados con Envío' },
             { value: '10+', label: 'Años de Experiencia' },
           ].map((stat) => (
-            <div key={stat.label} className="hero-word">
-              <p className="font-display text-2xl md:text-3xl lg:text-4xl font-black text-delbichi-white">
+            <div key={stat.label} className="hero-stat-item">
+              <p className="hero-stat-value font-display font-black text-delbichi-white">
                 {stat.value}
               </p>
-              <p className="font-body text-xs md:text-sm text-delbichi-gray mt-1 uppercase tracking-wider">
+              <p className="hero-stat-label font-body text-delbichi-gray uppercase tracking-wider">
                 {stat.label}
               </p>
             </div>
@@ -171,7 +224,7 @@ export default function HeroSection() {
 
       <div
         ref={scrollIndicatorRef}
-        className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="hero-scroll-hint absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
       >
         <span className="font-display text-[10px] uppercase tracking-[0.3em] text-delbichi-metallic">
           Scroll

@@ -38,7 +38,7 @@ function smoothScrollTo(targetY: number) {
   );
 }
 
-export default function HorizontalCatalog() {
+export default function HorizontalCatalog({ standalone = false }: { standalone?: boolean }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -67,6 +67,10 @@ export default function HorizontalCatalog() {
   };
 
   const skipCatalog = () => {
+    if (standalone) {
+      window.location.href = '/';
+      return;
+    }
     const st = catalogScrollTriggerRef.current;
     if (st) {
       smoothScrollTo(st.end + 2);
@@ -82,6 +86,7 @@ export default function HorizontalCatalog() {
       if (!track || !section) return;
 
       const scrollDistance = track.scrollWidth - window.innerWidth;
+      const scrollEnd = Math.max(scrollDistance * 0.72, window.innerHeight * 1.5);
 
       const horizontalTween = gsap.to(track, {
         x: -scrollDistance,
@@ -90,9 +95,9 @@ export default function HorizontalCatalog() {
           id: 'catalog-pin',
           trigger: section,
           start: 'top top',
-          end: () => `+=${scrollDistance}`,
+          end: () => `+=${scrollEnd}`,
           pin: true,
-          scrub: 1,
+          scrub: 0.8,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         },
@@ -100,21 +105,42 @@ export default function HorizontalCatalog() {
 
       catalogScrollTriggerRef.current = horizontalTween.scrollTrigger ?? null;
 
+      const productCards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
+      productCards.forEach((card) => {
+        gsap.fromTo(
+          card,
+          {
+            scale: 0.94,
+            opacity: 0.7,
+            boxShadow: '0 0 0 rgba(229,30,27,0)',
+          },
+          {
+            scale: 1.02,
+            opacity: 1,
+            boxShadow: '0 0 32px rgba(229,30,27,0.2)',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: card,
+              containerAnimation: horizontalTween,
+              start: 'left 62%',
+              end: 'left 38%',
+              scrub: 0.4,
+            },
+          }
+        );
+      });
+
       gsap.fromTo(
-        cardsRef.current.filter(Boolean),
+        '.catalog-intro',
+        { x: -40, opacity: 0 },
         {
-          opacity: 0.3,
-          scale: 0.92,
-        },
-        {
+          x: 0,
           opacity: 1,
-          scale: 1,
-          duration: 1.2,
-          stagger: 0.08,
-          ease: 'power2.out',
+          duration: 0.9,
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: section,
-            start: 'top 80%',
+            start: 'top 70%',
             toggleActions: 'play none none reverse',
           },
         }
@@ -150,41 +176,41 @@ export default function HorizontalCatalog() {
 
       <nav
         aria-label="Atajos del catálogo"
-        className="absolute bottom-5 left-1/2 z-20 flex max-w-[calc(100%-2rem)] -translate-x-1/2 flex-wrap items-center justify-center gap-2 rounded-sm border border-delbichi-metallic/25 bg-delbichi-black/75 px-3 py-2 backdrop-blur-md md:bottom-8 md:gap-2.5 md:px-4 md:py-2.5"
+        className="absolute bottom-5 left-1/2 z-20 flex max-w-[calc(100%-2rem)] -translate-x-1/2 flex-wrap items-center justify-center gap-2 rounded-full border border-delbichi-metallic/20 bg-delbichi-black/70 px-3 py-2 backdrop-blur-md md:bottom-8 md:gap-2.5 md:px-4 md:py-2.5"
       >
-        <span className="hidden font-body text-[10px] uppercase tracking-[0.2em] text-delbichi-metallic sm:inline">
-          Ir a:
+        <span className="hidden font-body text-[10px] tracking-wide text-delbichi-metallic sm:inline">
+          Ir a
         </span>
         <button
           type="button"
           onClick={() => jumpToMarker(cauchosMarkerRef.current)}
-          className="rounded-sm border border-delbichi-metallic/30 px-3 py-1.5 font-body text-[10px] uppercase tracking-[0.15em] text-delbichi-white transition-colors hover:border-delbichi-vibrant hover:text-delbichi-vibrant md:text-xs"
+          className="rounded-full border border-delbichi-metallic/25 px-3 py-1.5 font-body text-[10px] tracking-wide text-delbichi-white transition-colors hover:border-delbichi-vibrant/60 hover:bg-delbichi-vibrant/10 hover:text-delbichi-vibrant md:text-xs"
         >
           Cauchos
         </button>
         <button
           type="button"
           onClick={() => jumpToMarker(repuestosMarkerRef.current)}
-          className="rounded-sm border border-delbichi-metallic/30 px-3 py-1.5 font-body text-[10px] uppercase tracking-[0.15em] text-delbichi-white transition-colors hover:border-delbichi-vibrant hover:text-delbichi-vibrant md:text-xs"
+          className="rounded-full border border-delbichi-metallic/25 px-3 py-1.5 font-body text-[10px] tracking-wide text-delbichi-white transition-colors hover:border-delbichi-vibrant/60 hover:bg-delbichi-vibrant/10 hover:text-delbichi-vibrant md:text-xs"
         >
           Repuestos
         </button>
         <button
           type="button"
           onClick={skipCatalog}
-          className="inline-flex items-center gap-1.5 rounded-sm border border-delbichi-primary/50 bg-delbichi-primary/20 px-3 py-1.5 font-body text-[10px] uppercase tracking-[0.15em] text-delbichi-white transition-colors hover:border-delbichi-vibrant hover:bg-delbichi-vibrant/20 md:text-xs"
+          className="inline-flex items-center gap-1.5 rounded-full border border-delbichi-primary/40 bg-delbichi-primary/15 px-3 py-1.5 font-body text-[10px] tracking-wide text-delbichi-white transition-colors hover:border-delbichi-vibrant hover:bg-delbichi-vibrant/25 md:text-xs"
         >
           <SkipForward className="h-3 w-3" aria-hidden />
-          Saltar catálogo
+          {standalone ? 'Ir al inicio' : 'Saltar catálogo'}
         </button>
       </nav>
 
       <div
         ref={trackRef}
-        className="relative z-10 flex h-full items-center gap-6 md:gap-12 px-6 md:px-12 will-change-transform"
+        className="relative z-10 flex h-full items-center gap-3 md:gap-6 px-4 md:px-8 will-change-transform"
         style={{ width: 'max-content' }}
       >
-        <div className="flex h-full w-[90vw] md:w-screen flex-shrink-0 flex-col items-start justify-center px-4 md:px-16 lg:px-24">
+        <div className="catalog-intro flex h-full w-[82vw] md:w-[70vw] lg:w-[55vw] flex-shrink-0 flex-col items-start justify-center px-4 md:px-10 lg:px-14">
           <span className="mb-8 font-body text-xs md:text-sm uppercase tracking-[0.3em] text-delbichi-vibrant">
             Productos Destacados
           </span>
@@ -211,7 +237,7 @@ export default function HorizontalCatalog() {
               <div
                 key={`section-${item.title}`}
                 ref={sectionMarkerRef}
-                className="flex h-[70%] max-h-[520px] w-[75vw] sm:w-[300px] md:w-[340px] flex-shrink-0 flex-col items-start justify-center rounded-sm border border-delbichi-primary/30 bg-delbichi-wine/20 px-8 md:px-10"
+                className="flex h-[70%] max-h-[480px] w-[68vw] sm:w-[260px] md:w-[280px] flex-shrink-0 flex-col items-start justify-center rounded-2xl border border-delbichi-primary/30 bg-delbichi-wine/20 px-6 md:px-8"
               >
                 <span className="mb-4 font-body text-[10px] md:text-xs uppercase tracking-[0.35em] text-delbichi-vibrant">
                   Línea
@@ -239,7 +265,7 @@ export default function HorizontalCatalog() {
                 cardsRef.current[cardIndex] = el;
               }}
               onClick={() => setSelectedProduct(product)}
-              className="group relative flex h-[75%] max-h-[600px] min-h-[450px] w-[85vw] sm:w-[350px] md:w-[400px] lg:w-[440px] flex-shrink-0 cursor-pointer flex-col overflow-hidden rounded-sm border border-delbichi-metallic/20 bg-delbichi-dark will-change-transform"
+              className="group relative flex h-[72%] max-h-[560px] min-h-[400px] w-[78vw] sm:w-[300px] md:w-[340px] lg:w-[380px] flex-shrink-0 cursor-pointer flex-col overflow-hidden rounded-2xl border border-delbichi-metallic/20 bg-delbichi-dark will-change-transform transition-[border-color] duration-300 hover:border-delbichi-vibrant/40"
             >
               <span className="absolute right-4 top-4 md:right-6 md:top-6 z-10 font-display text-[4rem] md:text-[6rem] font-black leading-none text-delbichi-white/[0.04] pointer-events-none">
                 {product.tag}

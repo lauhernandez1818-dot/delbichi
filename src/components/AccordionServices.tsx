@@ -68,18 +68,19 @@ export default function AccordionServices() {
         validItems,
         {
           opacity: 0,
-          y: 60,
+          y: 36,
+          scale: 0.96,
         },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: 'power3.out',
+          scale: 1,
+          duration: 0.55,
+          stagger: 0.08,
+          ease: 'back.out(1.4)',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 75%',
-            end: 'top 25%',
+            start: 'top 82%',
             toggleActions: 'play none none reverse',
           },
         }
@@ -92,7 +93,7 @@ export default function AccordionServices() {
     <section
       ref={sectionRef}
       id="servicios"
-      className="relative z-10 overflow-hidden px-8 py-32"
+      className="relative z-10 overflow-hidden px-6 py-20 md:px-8 md:py-24"
       style={{
         background: `
           radial-gradient(ellipse 50% 40% at 70% 20%, rgba(125,20,22,0.2) 0%, transparent 60%),

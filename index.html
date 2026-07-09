@@ -48,6 +48,24 @@
       <img src="/images/logo.webp" alt="Delbichi Motors" />
     </div>
     <div id="root"></div>
+    <script>
+      (function () {
+        function hideLoader() {
+          var loader = document.getElementById('page-loader');
+          if (!loader || loader.classList.contains('is-hidden')) return;
+          loader.classList.add('is-hidden');
+          window.setTimeout(function () {
+            loader.remove();
+          }, 600);
+        }
+
+        window.addEventListener('error', hideLoader);
+        window.setTimeout(function () {
+          var root = document.getElementById('root');
+          if (root && root.childElementCount > 0) hideLoader();
+        }, 4000);
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

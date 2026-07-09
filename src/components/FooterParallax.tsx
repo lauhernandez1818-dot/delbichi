@@ -2,7 +2,21 @@ import { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, MessageCircle } from 'lucide-react';
+
+const InstagramIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
+
+const FacebookIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.3V12h2.3V9.8c0-2.3 1.4-3.6 3.5-3.6 1 0 2 .2 2 .2v2.2h-1.1c-1.1 0-1.5.7-1.5 1.4V12h2.6l-.4 2.9h-2.2v7A10 10 0 0 0 22 12" />
+  </svg>
+);
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,7 +58,7 @@ const FooterParallax: React.FC = () => {
     <div ref={containerRef} id="contacto" className="relative w-full">
       <footer
         ref={footerRef}
-        className="relative flex h-auto w-full flex-col overflow-hidden px-6 pb-12 pt-32 md:px-12 lg:px-20 will-change-transform"
+        className="relative flex h-auto w-full flex-col overflow-hidden px-6 pb-10 pt-20 md:px-12 md:pb-12 md:pt-24 lg:px-20 will-change-transform"
         style={{
           background: `
             radial-gradient(ellipse 70% 50% at 50% 30%, rgba(125,20,22,0.25) 0%, transparent 70%),
@@ -67,22 +81,21 @@ const FooterParallax: React.FC = () => {
         <div className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[60vw] max-w-[700px] aspect-square rounded-full bg-delbichi-deep/20 blur-[150px] pointer-events-none" />
         {/* ── Top Area: Massive CTA & Industrial Button ── */}
         <div className="footer-reveal my-auto flex w-full flex-col items-center justify-center gap-8 text-center">
-          <h2 className="w-full cursor-default break-words font-display text-[clamp(2.5rem,8vw,5.5rem)] font-black leading-tight tracking-tight text-delbichi-white transition-colors duration-500 hover:text-delbichi-vibrant">
-            COTIZA TU PEDIDO
+          <h2 className="w-full cursor-default break-words font-display text-[clamp(2rem,7vw,4.5rem)] font-bold leading-tight tracking-tight text-delbichi-white">
+            Cotiza tu pedido
           </h2>
 
           <a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center justify-center gap-4 border-4 border-delbichi-primary bg-transparent px-12 py-6 transition-all duration-300 hover:bg-delbichi-vibrant"
+            className="btn-bubble btn-bubble-primary btn-bubble-lg group"
           >
-            <span className="font-display text-xl font-black uppercase tracking-widest text-delbichi-white transition-colors duration-300 group-hover:text-delbichi-black md:text-2xl">
-              Iniciar Chat
-            </span>
+            <MessageCircle className="h-6 w-6 shrink-0 md:h-7 md:w-7" aria-hidden />
+            Iniciar chat
             <ArrowUpRight
-              className="h-8 w-8 text-delbichi-primary transition-colors duration-300 group-hover:text-delbichi-black md:h-10 md:w-10"
-              strokeWidth={3}
+              className="h-5 w-5 shrink-0 opacity-80 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 md:h-6 md:w-6"
+              strokeWidth={2.5}
             />
           </a>
         </div>
@@ -100,29 +113,32 @@ const FooterParallax: React.FC = () => {
           </div>
 
           {/* Social Links */}
-          <div className="flex flex-row flex-wrap gap-6 lg:justify-end">
+          <div className="flex flex-row flex-wrap items-center gap-3 lg:justify-end">
             <a
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-display text-2xl font-bold uppercase tracking-tight text-delbichi-white transition-all duration-300 hover:text-delbichi-vibrant hover:underline decoration-delbichi-vibrant decoration-2 underline-offset-8 md:text-3xl"
+              className="btn-social btn-social-instagram"
             >
+              <InstagramIcon />
               Instagram
             </a>
             <a
               href={FACEBOOK_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-display text-2xl font-bold uppercase tracking-tight text-delbichi-white transition-all duration-300 hover:text-delbichi-vibrant hover:underline decoration-delbichi-vibrant decoration-2 underline-offset-8 md:text-3xl"
+              className="btn-social btn-social-facebook"
             >
+              <FacebookIcon />
               Facebook
             </a>
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-display text-2xl font-bold uppercase tracking-tight text-delbichi-white transition-all duration-300 hover:text-delbichi-vibrant hover:underline decoration-delbichi-vibrant decoration-2 underline-offset-8 md:text-3xl"
+              className="btn-social btn-social-whatsapp"
             >
+              <MessageCircle className="h-4 w-4 shrink-0" aria-hidden />
               WhatsApp
             </a>
           </div>
