@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ChevronDown, MessageCircle } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
+import WhatsAppIcon from './icons/WhatsAppIcon';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -188,7 +189,7 @@ export default function HeroSection() {
             id="hero-cta-primary"
             className="btn-bubble btn-bubble-primary btn-bubble-md animate-bubble-float"
           >
-            <MessageCircle className="h-5 w-5 shrink-0" aria-hidden />
+            <WhatsAppIcon className="h-5 w-5" />
             Cotizar ahora
           </a>
           <Link

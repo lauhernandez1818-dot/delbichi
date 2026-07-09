@@ -2,7 +2,8 @@ import { useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { Menu, X, MessageCircle } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import WhatsAppIcon from './icons/WhatsAppIcon';
 
 const WHATSAPP_URL =
   'https://api.whatsapp.com/send/?phone=584223330304&text&type=phone_number&app_absent=0&utm_source=ig';
@@ -75,7 +76,7 @@ export default function Navbar() {
           id="nav-cta"
           className="btn-bubble btn-bubble-primary btn-bubble-sm hidden md:inline-flex flex-shrink-0 whitespace-nowrap"
         >
-          <MessageCircle className="h-4 w-4 shrink-0" aria-hidden />
+          <WhatsAppIcon className="h-4 w-4" />
           Cotizar
         </a>
 
@@ -121,7 +122,7 @@ export default function Navbar() {
             rel="noopener noreferrer"
             className="btn-bubble btn-bubble-primary btn-bubble-md mt-6 w-full"
           >
-            <MessageCircle className="h-5 w-5 shrink-0" aria-hidden />
+            <WhatsAppIcon className="h-5 w-5" />
             Cotizar por WhatsApp
           </a>
         </div>

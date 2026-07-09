@@ -674,3 +674,39 @@ html.lenis body {
     height: min(40vw, 340px);
   }
 }
+
+/* Reels centrados en desktop */
+@media (min-width: 1024px) {
+  .reels-row {
+    width: 100%;
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Footer — redes visibles en 1080p */
+.site-footer {
+  padding-bottom: max(4rem, env(safe-area-inset-bottom, 0px) + 2.5rem);
+}
+
+@media (min-width: 768px) {
+  .site-footer {
+    padding-bottom: max(5rem, env(safe-area-inset-bottom, 0px) + 3rem);
+  }
+}
+
+@media (max-height: 900px) {
+  .site-footer {
+    padding-top: 3.5rem;
+  }
+
+  .footer-social-row {
+    margin-top: 2.5rem;
+    gap: 1.5rem;
+  }
+}
+
+.footer-social-links {
+  padding-bottom: 0.25rem;
+}

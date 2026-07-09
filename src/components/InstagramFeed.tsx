@@ -147,8 +147,8 @@ export default function InstagramFeed() {
           </a>
         </div>
 
-        {/* Reels Container */}
-        <div className="hide-scrollbar flex gap-6 overflow-x-auto pb-12 snap-x snap-mandatory">
+        {/* Reels — móvil: scroll horizontal / desktop: 3 centrados */}
+        <div className="reels-row hide-scrollbar flex gap-5 overflow-x-auto pb-10 snap-x snap-mandatory sm:gap-6 lg:justify-center lg:overflow-visible lg:pb-12 lg:snap-none">
           {reels.map((reel, index) => (
             <div
               key={reel.id}
@@ -156,7 +156,7 @@ export default function InstagramFeed() {
                 cardsRef.current[index] = el;
               }}
               onClick={() => reel.videoSrc && setSelectedReel(reel)}
-              className={`group relative flex aspect-[9/16] w-[80vw] flex-shrink-0 snap-center flex-col overflow-hidden border border-delbichi-metallic/20 bg-delbichi-dark sm:w-[320px] md:w-[360px] lg:w-[400px] ${
+              className={`group relative flex aspect-[9/16] w-[min(80vw,300px)] flex-shrink-0 snap-center flex-col overflow-hidden rounded-2xl border border-delbichi-metallic/20 bg-delbichi-dark sm:w-[300px] md:w-[340px] lg:w-[min(30vw,380px)] xl:w-[380px] ${
                 reel.videoSrc ? 'cursor-pointer' : ''
               }`}
             >
@@ -204,8 +204,6 @@ export default function InstagramFeed() {
               </div>
             </div>
           ))}
-          {/* Spacer for right edge */}
-          <div className="w-[4vw] flex-shrink-0" />
         </div>
       </div>
 
