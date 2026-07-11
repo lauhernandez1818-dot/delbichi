@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /catalogo
 
 Sitemap: https://www.delbichimotors.com/sitemap.xml

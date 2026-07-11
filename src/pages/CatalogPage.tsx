@@ -2,8 +2,13 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import HorizontalCatalog from '../components/HorizontalCatalog';
 import FooterParallax from '../components/FooterParallax';
+import { usePageSeo } from '../hooks/usePageSeo';
 
 export default function CatalogPage() {
+  usePageSeo({
+    title: 'Catálogo — Delbichi Motors',
+    robots: 'noindex, nofollow',
+  });
   return (
     <>
       <main>
